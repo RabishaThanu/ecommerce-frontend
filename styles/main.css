@@ -1,6 +1,60 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    text-align: center;
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: black;
+    color: white;
+
+    padding: 15px 20px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+}
+
+.search-box input {
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.cart {
+    font-size: 22px;
+}
+
+@media (max-width: 768px) {
+
+    .nav-links {
+        display: none;
+    }
+
+    .search-box {
+        display: none;
+    }
+
+    .hamburger {
+        display: block;
+    }
+}
+
+.nav-links.active {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 70px;
+    right: 10px;
+    background: #222;
+    padding: 15px;
+    border-radius: 5px;
 }

@@ -34,14 +34,19 @@ fetch("https://fakestoreapi.com/products")
             card.classList.add("product-card");
 
             card.innerHTML = `
-                <img src="${product.image}" alt="${product.title}" loading="lazy">
-                <h3>${product.title}</h3>
-                <p>₹${product.price}</p>
-                <p>${product.description.substring(0, 80)}...</p>
-                <button onclick="addToCart('${product.title}')">
-                    Add to Cart
-                </button>
-            `;
+<a href="product.html?id=${product.id}">
+    <img src="${product.image}" alt="${product.title}">
+</a>
+
+<h3>${product.title}</h3>
+<p>$${product.price}</p>
+<p>${product.description.substring(0,80)}...</p>
+
+<button onclick="addToCart(${product.id})">
+        Add to Cart
+    </button>
+
+`;
 
             productGrid.appendChild(card);
         });
@@ -55,6 +60,28 @@ fetch("https://fakestoreapi.com/products")
         console.error(error);
     });
 
-function addToCart(productName) {
-    alert(productName + " added to cart!");
+function addToCart(productId) {
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    cart.push(productId);
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    updateCartCount();
+
+    alert("Product Added To Cart!");
 }
+
+function updateCartCount() {
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    const cartCount = document.getElementById("cart-count");
+
+    if (cartCount) {
+        cartCount.textContent = cart.length;
+    }
+}
+
+updateCartCount();

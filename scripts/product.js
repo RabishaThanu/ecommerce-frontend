@@ -10,6 +10,7 @@ fetch(`https://fakestoreapi.com/products/${productId}`)
     .then(response => response.json())
     .then(product => {
 
+        basePrice = product.price;
         productDetail.innerHTML = `
 <div class="product-page">
 
@@ -21,7 +22,9 @@ fetch(`https://fakestoreapi.com/products/${productId}`)
 
     <h2>${product.title}</h2>
 
-    <h3>$${product.price}</h3>
+    <h3>
+    Price: $<span id="price">${product.price}</span>
+    </h3>
 
     <label>Size:</label>
     <select id="size">
@@ -40,6 +43,13 @@ fetch(`https://fakestoreapi.com/products/${productId}`)
     </select>
 
     <br><br>
+
+    <label>Quantity:</label>
+    <button onclick="decreaseQty()">-</button>
+    <span id="quantity">1</span>
+    <button onclick="increaseQty()">+</button>
+
+   <br><br>
 
     <p>${product.description}</p>
 
@@ -78,4 +88,36 @@ function updateCartCount() {
     if (cartCount) {
         cartCount.textContent = cart.length;
     }
+}
+
+let quantity = 1;
+
+let basePrice = 0;
+
+function increaseQty() {
+
+    quantity++;
+
+    document.getElementById("quantity").textContent = quantity;
+
+    updatePrice();
+}
+
+function decreaseQty() {
+
+    if (quantity > 1) {
+
+        quantity--;
+
+        document.getElementById("quantity").textContent = quantity;
+
+        updatePrice();
+    }
+}
+
+function updatePrice() {
+
+    const totalPrice = (basePrice * quantity).toFixed(2);
+
+    document.getElementById("price").textContent = totalPrice;
 }
